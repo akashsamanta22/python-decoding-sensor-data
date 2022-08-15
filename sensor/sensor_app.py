@@ -79,25 +79,4 @@ recs = energy_data.get_data_by_date(rec_date=test_date)
 print("House Energy sensor records for date: {} = {}".format(
     test_date.strftime("%m/%d/%y"), len(recs)))
 total_energy = energy_data.calculate_energy_usage(data=recs)
-print("\tEnergy Usage: {:2.2} Watts".format(total_energy)) 
-  18  
-sensor/temperature_info.py
-@@ -0,0 +1,18 @@
-from house_info import HouseInfo
-from datetime import date
-
-class TemperatureData(HouseInfo):
-    def _convert_data(self, data):
-        recs = []
-        for rec in data:
-            # Convert string of integers into integers based 10
-            recs.append(int(rec, base=10))
-        return recs
-
-    def get_data_by_area(self, rec_area=0):
-        recs = super().get_data_by_area("temperature", rec_area)
-        return self._convert_data(recs)
-
-    def get_data_by_date(self, rec_date=date.today()):
-        recs = super().get_data_by_date("temperature", rec_date)
-        return self._convert_data(recs)
+print("\tEnergy Usage: {:2.2} Watts".format(total_energy))

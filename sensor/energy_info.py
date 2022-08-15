@@ -30,4 +30,4 @@ class EnergyData(HouseInfo):
 
     def calculate_energy_usage(self, data):
         total_energy = sum([field * self.ENERGY_PER_BULB for field in data])
-        return total_energy 
+        return total_energy
