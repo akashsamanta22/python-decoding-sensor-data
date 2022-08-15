@@ -1,20 +1,22 @@
-from house_info import HouseInfo
 from datetime import date
 
+class HouseInfo(object):
+    def __init__(self, data):
+        self.data = data
 
-class HumidityData(HouseInfo):
-    def _convert_data(self, data):
-        recs = []
-        for rec in data:
-            # Convert string of integers into actual integers based 10
-            recs.append(float(rec) * 100)
-        return recs
+    def get_data_by_area(self, field, rec_area=0):
+        field_data = []
+        for record in self.data:
+            if rec_area == 0:
+                field_data.append(record[field])
+            elif rec_area == int(record['area']):
+                field_data.append(record[field])
+        return field_data
 
-    def get_data_by_area(self, rec_area=0):
-        recs = super().get_data_by_area("humidity", rec_area)
-        return self._convert_data(recs)
+    def get_data_by_date(self, field, rec_date=date.today()):
+        field_data = []
 
-
-    def get_data_by_date(self, rec_date=date.today()):
-        recs = super().get_data_by_date("humidity", rec_date)
-        return self._convert_data(recs)
+        for record in self.data:
+            if rec_date.strftime("%m/%d/%y") == record['date']:
+                field_data.append(record[field])
+        return field_data 
